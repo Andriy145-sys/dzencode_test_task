@@ -1,6 +1,6 @@
 # dzencode_test_task
 
-> A Vue.js project
+> A Vue.js test project for dZENcode 
 
 ## Build Setup
 
