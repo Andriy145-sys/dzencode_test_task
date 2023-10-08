@@ -1,20 +1,13 @@
 <template>
-  <div
-    style="
-    max-width: 1050px;
-      overflow-x: auto;
-      white-space: nowrap;
-    "
-  >
-  <div style="width: 2000px;">
-    <product-card
+  <div style="max-width: 1050px; overflow-x: auto; white-space: nowrap">
+    <div style="width: 2000px">
+      <product-card
         v-for="product in products"
         :key="product.id"
         :product="product"
         style="width: auto"
       />
-  </div>
-      
+    </div>
   </div>
 </template>
 

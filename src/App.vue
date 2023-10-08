@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <top-menu />
-      <v-row no-gutters style="height: 1000px">
+      <v-row no-gutters style="min-height: 100svh;">
         <navigation-menu />
         <router-view />
       </v-row>

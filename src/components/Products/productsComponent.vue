@@ -25,6 +25,7 @@
 
 <script>
 import productsList from "./productsList.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: { productsList },
   data: () => ({
@@ -149,12 +150,13 @@ export default {
     productType: "Всі",
   }),
   mounted() {
+    this.getProductList();
     this.setProductTypes();
-    this.filteredProducts = this.products;
   },
   methods: {
+    ...mapActions(["getProductList"]),
     setProductTypes() {
-      this.products.forEach((product) => this.productTypes.push(product.type));
+      this.productList.forEach((product) => this.productTypes.push(product.type));
       this.productTypes = [...new Set(this.productTypes)];
     },
     filterProductsByType() {
@@ -162,6 +164,9 @@ export default {
         (product) => product.type == this.productType
       );
     },
+  },
+  computed: {
+    ...mapGetters(["productList"]),
   },
   watch: {
     productType: {
@@ -176,6 +181,12 @@ export default {
         }
       },
     },
+    productList: {
+      deep: true,
+      handler(){
+        this.filteredProducts = this.productList;
+      }
+    }
   },
 };
 </script>

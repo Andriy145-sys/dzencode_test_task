@@ -1,7 +1,9 @@
 <template>
-  <v-card color="white" class="mb-5">
+  <v-card color="white" class="mb-5 productCard">
     <v-row no-gutters align="center" style="padding: 10px">
-      <v-icon :color="product.order ? 'black' : 'rgb(6, 191, 0)'" x-small>mdi-brightness-1</v-icon>
+      <v-icon :color="product.order ? 'black' : 'rgb(6, 191, 0)'" x-small
+        >mdi-brightness-1</v-icon
+      >
       <img
         height="40px"
         width="50px"
@@ -59,15 +61,15 @@
           }}{{ price.symbol == "USD" ? "$" : "UAН" }} <br
         /></span>
       </v-col>
-      <v-col cols="2" style="text-align: left;">
+      <v-col cols="2" style="text-align: left">
         <span>{{ product.group ? product.group : "&mdash;" }}</span>
       </v-col>
-      <v-col cols="1" style="text-align: left;">
+      <v-col cols="1" style="text-align: left">
         <span>{{
           product.ownerName ? product.ownerName : "&mdash;"
         }}</span></v-col
       >
-      <v-col cols="2" style="text-align: left;">
+      <v-col cols="2" style="text-align: left">
         <span>{{
           product.orderName ? product.orderName : "&mdash;"
         }}</span></v-col
@@ -109,7 +111,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .productTitle {
   font-size: 16px;
   color: black;

@@ -9,10 +9,10 @@
     <v-card style="text-align: left">
       <div style="padding: 20px">
         <h3 class="mb-5">Довга придовга довжилезна назва приходу</h3>
-        <span style="color: rgb(6, 191, 0)"
+        <button style="color: rgb(6, 191, 0);"
           ><v-btn x-small color="rgb(6, 191, 0)" fab
             ><v-icon color="white">mdi-plus</v-icon></v-btn
-          >&nbsp; Добавити продукт</span
+          >&nbsp; Добавити продукт</button
         >
       </div>
       <detail-product-list

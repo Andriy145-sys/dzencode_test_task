@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-container style="padding: 100px">
+    <v-container style="padding: 100px 50px">
       <v-row no-gutters align="center" class="mb-5">
         <div
           style="
@@ -8,7 +8,7 @@
             height: 40px;
             background-color: green;
             border-radius: 50%;
-          " 
+          "
           class="mr-2"
         >
           <v-btn class="mt-1" x-small color="rgb(6, 191, 0)" fab
@@ -36,6 +36,7 @@
 <script>
 import ConfirmDeleteOrderModal from "./confirmDeleteOrderModal.vue";
 import ordersList from "./ordersList.vue";
+import { mapGetters } from "vuex";
 export default {
   components: { ordersList, ConfirmDeleteOrderModal },
   data: () => ({
@@ -43,227 +44,43 @@ export default {
     orders: [
       {
         id: 1,
-        title: "Order 1",
+        title: "Довга назва приходу",
         date: "2017-06-29 12:09:33",
         description: "desc",
         products: [],
       },
       {
         id: 2,
-        title: "Order 2",
+        title: "Довга придовга довжилезна назва приходу",
         date: "2017-06-29 12:09:33",
         description: "desc",
         products: [],
       },
       {
         id: 3,
-        title: "Order 3",
+        title: "Довга назва приходу",
         date: "2017-06-29 12:09:33",
         description: "desc",
         products: [],
       },
-    ],
-    products: [
-      {
-        id: 1,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 1,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 2,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 2,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 3,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 3",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 1000, symbol: "USD", isDefault: 0 },
-          { value: 26000, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 3,
-        date: "2017-06-29 12:09:33",
-      },
-
       {
         id: 4,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 1,
+        title: "Довга придовга довжилезна назва приходу",
         date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 5,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 1,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 6,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 1,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 7,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 1,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 8,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 1,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 9,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 1,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 10,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 2",
-        type: "Monitors",
-        specification: "Specification 2",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 2,
-        date: "2017-06-29 12:09:33",
+        description: "desc",
+        products: [],
       },
     ],
     deleteOrderProductsList: [],
   }),
   mounted() {
-    this.getProducts();
+    if(this.productList.length > 0){
+      this.getProducts();
+    }
   },
   methods: {
     getProducts() {
-      this.products.forEach((product) => {
+      this.productList.forEach((product) => {
         this.orders.forEach((order) => {
           order.id == product.order ? order.products.push(product) : "";
         });
@@ -282,29 +99,28 @@ export default {
       this.showConfirmDeleteOrderModal = false;
     },
     setProductPrice() {
-      let defaultSum = 0;
-      let noDefaultSum = 0;
       this.orders.forEach((order) => {
+        let prices = [];
         if (order.products.length > 0) {
           order.products.forEach((product) => {
-            if (product.price[1].isDefault == 1) {
-              defaultSum = defaultSum + product.price[1].value;
-            } else {
-              noDefaultSum = noDefaultSum + product.price[1].value;
-            }
-            if (product.price[0].isDefault == 0) {
-              noDefaultSum = noDefaultSum + product.price[0].value;
-            } else {
-              defaultSum = defaultSum + product.price[0].value;
-            }
+            product.price.forEach((price) => {
+              let priceIndex = prices.findIndex(
+                (_price) => _price.symbol == price.symbol
+              );
+              if (priceIndex !== -1) {
+                prices[priceIndex].value += price.value;
+              } else {
+                prices.push(price);
+              }
+            });
           });
         }
-        order.defaultSum = defaultSum;
-        order.noDefaultSum = noDefaultSum;
-        defaultSum = 0;
-        noDefaultSum = 0;
+        order.prices = prices.sort((a,b) => a.isDefault - b.isDefault);
       });
     },
+  },
+  computed: {
+    ...mapGetters(['productList'])
   },
 };
 </script>

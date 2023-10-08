@@ -1,5 +1,5 @@
 <template>
-  <v-card color="white" class="rounded-0">
+  <div class="productCard" color="white">
     <v-row no-gutters align="center" style="padding: 10px">
       <v-icon :color="product.order ? 'black' : 'rgb(6, 191, 0)'" x-small>mdi-brightness-1</v-icon>
       <img
@@ -28,7 +28,7 @@
         ></v-row
       >
     </v-row>
-  </v-card>
+  </div>
 </template>
 
 <script>
@@ -44,7 +44,17 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.productCard {
+  border: 1px solid #ccc;
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 65px;
+  cursor: pointer;
+}
+.productCard:hover {
+  transform: scale(1.01);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 .productTitle {
   font-size: 16px;
   color: black;

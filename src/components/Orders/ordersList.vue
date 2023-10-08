@@ -7,11 +7,12 @@
         :order="order"
         @showDetailProducts="showDetailProducts"
         :isShowDetailProducts="isShowDetailProducts"
+        :activeOrderId="activeOrderId"
         @deleteOrder="deleteOrder"
       />
     </v-col>
     <v-col cols="8" v-if="isShowDetailProducts" class="pl-10">
-      <detail-product-component 
+      <detail-product-component
         @hideDetailProducts="isShowDetailProducts = false"
         :products="products"
         @deleteProduct="deleteProduct"
@@ -21,12 +22,13 @@
 </template>
 
 <script>
-import DetailProductComponent from './detailProduct/detailProductComponent.vue';
+import DetailProductComponent from "./detailProduct/detailProductComponent.vue";
 import orderCard from "./orderCard.vue";
 export default {
   components: { orderCard, DetailProductComponent },
   data: () => ({
     isShowDetailProducts: false,
+    activeOrderId: null,
     products: [],
   }),
   props: {
@@ -36,14 +38,21 @@ export default {
   },
   methods: {
     deleteOrder(products, id) {
-      this.$emit("deleteOrder",products, id);
+      this.$emit("deleteOrder", products, id);
     },
-    deleteProduct(product){
-      this.$emit('deleteProduct', product)
+    deleteProduct(product) {
+      this.$emit("deleteProduct", product);
     },
-    showDetailProducts(products) {
-      this.products = products;
-      this.isShowDetailProducts = true;
+    showDetailProducts(id, products) {
+      if (this.activeOrderId == id) {
+        this.isShowDetailProducts = false;
+        this.activeOrderId = null;
+        this.products = [];
+      } else {
+        this.activeOrderId = id;
+        this.products = products;
+        this.isShowDetailProducts = true;
+      }
     },
   },
 };

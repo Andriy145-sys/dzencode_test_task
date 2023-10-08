@@ -1,18 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
- 
+import createPersistedState from "vuex-persistedstate";
+import products from './modules/products'
 Vue.use(Vuex)
- 
+
 export default new Vuex.Store({
-    state: {},
+    plugins: [createPersistedState()],
     mutations: {
-        "SOCKET_  connection"() {
-            console.log("work")
+        setError(state, error) {
+            state.error = error
+        },
+        clearError(state) {
+            state.error = null
         }
     },
-    actions: {
-        "SOCKET_ Connect"() {
-            console.log("owrk 2")
-        }
+    getters: {
+        error: s => s.error
+    },
+    modules: {
+        products
     }
 })
