@@ -1,6 +1,6 @@
 <template>
-  <div class="closeIcon">
-    <v-icon @click="$emit('close')" small>mdi-close</v-icon>
+  <div class="closeIcon" @click="$emit('close')">
+    <v-icon small>mdi-close</v-icon>
   </div>
 </template>
 

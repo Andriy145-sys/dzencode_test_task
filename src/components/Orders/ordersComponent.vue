@@ -1,7 +1,11 @@
 <template>
+  <!-- Main content container -->
   <v-main>
+    <!-- Container with padding -->
     <v-container style="padding: 100px 50px">
+      <!-- Row for displaying add button and orders count -->
       <v-row no-gutters align="center" class="mb-5">
+        <!-- Circular green button with add icon -->
         <div
           style="
             width: 40px;
@@ -15,15 +19,19 @@
             ><v-icon color="white">mdi-plus</v-icon>
           </v-btn>
         </div>
-        <h2>Приходи / {{ orders.length }}</h2>
+        <!-- Heading displaying orders count -->
+        <h2>Прихід / {{ orders.length }}</h2>
       </v-row>
+      <!-- Loader component displayed during data loading -->
       <loader v-if="showLoader" />
+      <!-- Orders list component -->
       <orders-list
         v-else
         :orders="orders"
         @deleteOrder="deleteOrder"
         @deleteProduct="deleteProduct"
       />
+      <!-- Confirmation modal for deleting orders -->
       <confirm-delete-order-modal
         v-if="showConfirmDeleteOrderModal"
         :visible="showConfirmDeleteOrderModal"
@@ -36,14 +44,17 @@
 </template>
 
 <script>
-import Loader from "../UI/loader.vue";
+import Loader from "@/components/UI/loader.vue";
 import ConfirmDeleteOrderModal from "./confirmDeleteOrderModal.vue";
 import ordersList from "./ordersList.vue";
 import { mapGetters } from "vuex";
+
 export default {
   components: { ordersList, ConfirmDeleteOrderModal, Loader },
   data: () => ({
+    // State for controlling the delete order confirmation modal
     showConfirmDeleteOrderModal: false,
+    // Sample orders data
     orders: [
       {
         id: 1,
@@ -74,15 +85,19 @@ export default {
         products: [],
       },
     ],
+    // List of products to be deleted with an order
     deleteOrderProductsList: [],
+    // State for controlling the loader visibility
     showLoader: true,
   }),
   mounted() {
+    // Fetch products data if available
     if (this.productList.length > 0) {
       this.getProducts();
     }
   },
   methods: {
+    // Method to map products to their respective orders
     getProducts() {
       this.productList.forEach((product) => {
         this.orders.forEach((order) => {
@@ -91,17 +106,21 @@ export default {
       });
       this.setProductPrice();
     },
+    // Method to trigger order deletion
     deleteOrder(products) {
       this.deleteOrderProductsList = products;
       this.showConfirmDeleteOrderModal = true;
     },
+    // Method to trigger product deletion
     deleteProduct(product) {
       this.deleteOrderProductsList = [product];
       this.showConfirmDeleteOrderModal = true;
     },
+    // Method to confirm order deletion
     confirmDeleteOrder() {
       this.showConfirmDeleteOrderModal = false;
     },
+    // Method to calculate and set product prices for each order
     setProductPrice() {
       this.orders.forEach((order) => {
         let prices = [];
@@ -120,6 +139,7 @@ export default {
           });
         }
         order.prices = prices.sort((a, b) => a.isDefault - b.isDefault);
+        // Hide loader after a delay
         setTimeout(() => {
           this.showLoader = false;
         }, 500);

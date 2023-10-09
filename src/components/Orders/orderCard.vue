@@ -4,8 +4,11 @@
     style="border-radius: 5px"
     @click="showDetailProducts(order.id, order.products)"
   >
+    <!-- Main row for order card -->
     <v-row no-gutters align="start">
+      <!-- Column for order details -->
       <v-col :cols="isShowDetailProducts ? '10' : '12'">
+        <!-- Inner row for order details -->
         <v-row
           no-gutters
           align="center"
@@ -15,21 +18,26 @@
               : 'padding: 10px 20px;'
           "
         >
+          <!-- Title column -->
           <v-col cols="4" style="text-align: left" v-if="!isShowDetailProducts">
             <span class="orderTitle">{{ order.title }}</span>
           </v-col>
+          <!-- Navbar icon for mobile view -->
           <div class="navbarIcon">
             <v-icon style="margin-top: 5px">mdi-format-list-bulleted</v-icon>
           </div>
+          <!-- Product count column -->
           <v-col
             style="text-align: left"
             class="ml-5"
             :cols="isShowDetailProducts ? '3' : '1'"
           >
+            <!-- Display product count -->
             <span style="font-size: 18px; color: black; line-height: 5px">{{
               order.products.length
             }}</span
             ><br />
+            <!-- Display plural form based on product count -->
             <span style="font-size: 14px; color: silver; line-height: 5px">{{
               order.products.length == 1
                 ? "Продукт"
@@ -38,11 +46,13 @@
                 : "Продуктів"
             }}</span>
           </v-col>
+          <!-- Date column -->
           <v-col
             style="text-align: center"
             class="ml-5"
             :cols="isShowDetailProducts ? '5' : '2'"
           >
+            <!-- Display date in different formats -->
             <span style="font-size: 14px; color: silver; line-height: 5px">
               {{
                 new Date(order.date).toLocaleDateString("en-Gb", {
@@ -61,12 +71,14 @@
               }}</span
             >
           </v-col>
+          <!-- Prices column -->
           <v-col
             style="text-align: left"
             class="ml-5"
             cols="2"
             v-if="!isShowDetailProducts"
           >
+            <!-- Display prices for the order -->
             <span
               :class="price.isDefault == 1 ? 'mainText' : 'mainSubtext'"
               v-for="price in order.prices"
@@ -75,6 +87,7 @@
               {{ price.value }} {{ price.symbol }}</span
             >
           </v-col>
+          <!-- Delete icon column -->
           <v-row
             no-gutters
             align="start"
@@ -92,12 +105,14 @@
           >
         </v-row>
       </v-col>
+      <!-- Arrow column for expanded view -->
       <v-col
         v-if="isShowDetailProducts && activeOrderId == order.id"
         cols="2"
         style="text-align: right"
       >
         <v-row no-gutters justify="end">
+          <!-- Right arrow icon for expanded view -->
           <div class="detailArrow">
             <v-icon>mdi-chevron-right</v-icon>
           </div>
@@ -111,16 +126,17 @@
 export default {
   props: {
     isShowDetailProducts: {
-      require: true,
+      required: true,
     },
     order: {
-      require: true,
+      required: true,
     },
     activeOrderId: {
-      require: false,
+      required: false,
     },
   },
   methods: {
+    // Emit showDetailProducts event to parent component
     showDetailProducts(id, products) {
       this.$emit("showDetailProducts", id, products);
     },

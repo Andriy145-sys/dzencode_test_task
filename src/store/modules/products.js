@@ -1,18 +1,23 @@
 export default {
     state: {
+        // Initial state with an empty product list
         productList: []
     },
     mutations: {
+        // Mutation to set the product list in the state
         setProductList(state, list) {
             state.productList = list;
         },
+        // Mutation to clear the product list in the state
         clearProductList(state) {
             state.productList = [];
         }
     },
     actions: {
-        getProductList({ commit }) {
+        // Action to fetch and set the product list
+        async getProductList({ commit }) {
             try {
+                // Simulating an asynchronous API call to fetch the product list
                 const newList = [
                     {
                         id: 1,
@@ -278,14 +283,15 @@ export default {
                     },
                 ];
                 commit('setProductList', newList)
-
             } catch (e) {
+                // If an error occurs during the fetch, set an error in the state
                 commit('setError', e)
                 throw e
             }
         }
     },
     getters: {
-        productList: s => s.productList
+        // Getter to retrieve the product list from the state
+        productList: state => state.productList
     }
 }

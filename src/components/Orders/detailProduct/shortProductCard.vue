@@ -1,28 +1,37 @@
 <template>
   <div class="productCard" color="white">
+    <!-- Main row for product card -->
     <v-row no-gutters align="center" style="padding: 10px">
+      <!-- Icon indicating order status -->
       <v-icon :color="product.order ? 'black' : 'rgb(6, 191, 0)'" x-small>mdi-brightness-1</v-icon>
+      <!-- Product image -->
       <img
         height="40px"
         width="50px"
         class="ml-2 mr-5"
         :src="`${require('@/assets/img/' + product.photo)}`"
       />
+      <!-- Column for product details -->
       <v-col style="text-align: left" class="py-0" cols="2">
+        <!-- Product title with underline -->
         <span class="productTitle"
           ><u style="text-decoration-color: silver">{{
             product.title
           }}</u></span
         ><br />
+        <!-- Product serial number -->
         <span class="serialNumber">{{ product.serialNumber }}</span>
       </v-col>
+      <!-- Column for order status and delete icon -->
       <div style="width: 80px" v-if="isDeleteOrderModal">
+        <!-- Display order status -->
         <span
           :style="product.order ? 'color: black;' : 'color: rgb(6, 191, 0)'"
           >{{ product.order ? "В ремонті" : "вільний" }}</span
         >
       </div>
-      <v-row no-gutters align="start" justify="end" class="px-0"  v-if="isDeleteOrderModal">
+      <!-- Delete icon for product -->
+      <v-row no-gutters align="start" justify="end" class="px-0" v-if="isDeleteOrderModal">
         <v-icon @click="$emit('deleteProduct', product)" color="silver" small style="cursor: pointer"
           >mdi-delete-outline</v-icon
         ></v-row
@@ -35,10 +44,10 @@
 export default {
   props: {
     product: {
-      require: true,
+      required: true,
     },
     isDeleteOrderModal: {
-      require: false,
+      required: false,
     }
   },
 };
