@@ -27,7 +27,10 @@
 </template>
 
 <script>
+import socketMixin from '../mixins/socketMixin';
+
 export default {
+  mixins: [socketMixin],
   data: () => ({
     currentTime: "00:00",
   }),

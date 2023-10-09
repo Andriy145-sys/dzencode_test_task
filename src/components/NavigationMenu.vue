@@ -10,16 +10,22 @@
     <v-item-group class="mt-10">
       <v-col style="text-align: center">
         <v-item v-for="item in menuItemList" :key="item.id">
-          <p>
-            <router-link
-              class="menuItem"
-              :class="$route.path !== item.path ? '' : 'menuActiveItem'"
-              :to="item.path"
-              style="text-decoration: none"
-            >
-              {{ item.title }}
-            </router-link>
-          </p>
+          <v-row no-gutters justify="center">
+            <p style="width: max-content; height: 25px">
+              <router-link
+                class="menuItem"
+                :class="
+                  $route.path !== item.path
+                    ? 'inActiveMenuItem'
+                    : 'activeMenuItem'
+                "
+                :to="item.path"
+                style="text-decoration: none"
+              >
+                {{ item.title }}
+              </router-link>
+            </p>
+          </v-row>
         </v-item>
       </v-col>
     </v-item-group>
@@ -66,11 +72,24 @@ export default {
   color: #000000 !important;
   font-weight: 500;
   cursor: pointer;
+  border-bottom: 2px solid transparent;
+  display: block;
+  content: "";
 }
-.menuActiveItem {
-  text-align: center;
-  border-bottom: 3px solid rgb(6, 191, 0);
-  width: min-content;
+.inActiveMenuItem:after {
+  display: block;
+  content: "";
+  border-bottom: 2px solid #06bf00;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+}
+
+.activeMenuItem {
+  border-bottom: 2px solid #06bf00;
+}
+.inActiveMenuItem:hover:after {
+  transform: scaleX(1);
+  transform-origin: 0% 50%;
 }
 .avatar {
   width: 120px;

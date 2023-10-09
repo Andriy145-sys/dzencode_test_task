@@ -2,9 +2,9 @@
   <div id="app">
     <v-app>
       <top-menu />
-      <v-row no-gutters style="min-height: 100svh;">
+      <v-row no-gutters style="min-height: 100svh">
         <navigation-menu />
-        <router-view />
+        <page-transition />
       </v-row>
     </v-app>
   </div>
@@ -13,8 +13,9 @@
 <script>
 import NavigationMenu from "./components/NavigationMenu.vue";
 import TopMenu from "./components/TopMenu.vue";
+import PageTransition from "./components/PageTransition.vue";
 export default {
-  components: { TopMenu, NavigationMenu },
+  components: { TopMenu, NavigationMenu, PageTransition },
   name: "App",
 };
 </script>

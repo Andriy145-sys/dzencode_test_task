@@ -39,7 +39,7 @@ export default {
                         isNew: 1,
                         photo: "monitor.jpg",
                         title: "Product 1",
-                        type: "Monitors",
+                        type: "Monitors2",
                         specification: "Specification 1",
                         guarantee: {
                             start: "2017-06-29 12:09:33",
@@ -58,7 +58,7 @@ export default {
                         isNew: 1,
                         photo: "monitor.jpg",
                         title: "Product 3",
-                        type: "Monitors",
+                        type: "Monitors3",
                         specification: "Specification 1",
                         guarantee: {
                             start: "2017-06-29 12:09:33",
@@ -78,7 +78,7 @@ export default {
                         isNew: 1,
                         photo: "monitor.jpg",
                         title: "Product 1",
-                        type: "Monitors",
+                        type: "Monitors2",
                         specification: "Specification 1",
                         guarantee: {
                             start: "2017-06-29 12:09:33",
@@ -97,7 +97,7 @@ export default {
                         isNew: 1,
                         photo: "monitor.jpg",
                         title: "Product 1",
-                        type: "Monitors",
+                        type: "Monitors3",
                         specification: "Specification 1",
                         guarantee: {
                             start: "2017-06-29 12:09:33",
@@ -154,7 +154,7 @@ export default {
                         isNew: 1,
                         photo: "monitor.jpg",
                         title: "Product 1",
-                        type: "Monitors",
+                        type: "Monitors3",
                         specification: "Specification 1",
                         guarantee: {
                             start: "2017-06-29 12:09:33",
@@ -175,6 +175,7 @@ export default {
                         title: "Product 1",
                         type: "Monitors",
                         specification: "Specification 1",
+                        group: "Довга назва групи",
                         guarantee: {
                             start: "2017-06-29 12:09:33",
                             end: "2017-06-29 12:09:33",
@@ -192,8 +193,9 @@ export default {
                         isNew: 1,
                         photo: "monitor.jpg",
                         title: "Product 2",
-                        type: "Monitors",
-                        specification: "Specification 2",
+                        type: "Monitors2",
+                        specification: "Specification 1",
+                        orderName: "Довга придовга назва замовлення",
                         guarantee: {
                             start: "2017-06-29 12:09:33",
                             end: "2017-06-29 12:09:33",
@@ -214,6 +216,7 @@ export default {
                         title: "Product 2",
                         type: "Monitors",
                         specification: "Specification 2",
+                        ownerName: "Довга придовга назва власника",
                         guarantee: {
                             start: "2017-06-29 12:09:33",
                             end: "2017-06-29 12:09:33",
@@ -229,6 +232,9 @@ export default {
                         photo: "monitor.jpg",
                         title: "Product 2",
                         type: "Monitors",
+                        group: "Довга назва групи",
+                        orderName: "Довга придовга назва замовлення",
+                        ownerName: "Довга придовга назва власника",
                         specification: "Specification 2",
                         guarantee: {
                             start: "2017-06-29 12:09:33",

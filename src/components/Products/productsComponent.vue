@@ -3,7 +3,7 @@
     <v-container style="padding-left: 100px; padding-top: 60px">
       <v-row no-gutters align="center" class="mb-10">
         <v-btn color="rgb(6, 191, 0)" icon><v-icon>mdi-plus</v-icon></v-btn>
-        <h2>Продукти / {{ products.length }}</h2>
+        <h2>Продукти / {{ filteredProducts.length }}</h2>
         <p class="ml-5 mr-3 pt-4">Тип</p>
         <v-col cols="3" class="pt-5">
           <v-autocomplete
@@ -15,154 +15,83 @@
         </v-col>
         <p class="ml-5 mr-3 pt-4">Специфікація</p>
         <v-col cols="3" class="pt-5">
-          <v-autocomplete dense outlined />
+          <v-autocomplete
+            dense
+            outlined
+            :items="productSpecifications"
+            v-model="productSpecification"
+          />
         </v-col>
       </v-row>
-      <products-list :products="filteredProducts" />
+      <loader v-if="showLoader" />
+      <v-expand-transition>
+        <products-list v-if="!showLoader" :products="filteredProducts" />
+      </v-expand-transition>
     </v-container>
   </v-main>
 </template>
 
 <script>
 import productsList from "./productsList.vue";
+import loader from "../UI/loader.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
-  components: { productsList },
+  components: { productsList, loader },
   data: () => ({
-    products: [
-      {
-        id: 1,
-        serialNumber: 1234,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 1,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 2,
-        serialNumber: 1234,
-        isNew: 0,
-        photo: "monitor.jpg",
-        title: "Product 1",
-        type: "Monitors",
-        specification: "Specification 1",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: 2,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 3,
-        serialNumber: 12345,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 3",
-        type: "Monitors",
-        specification: "Specification 3",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: null,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 4,
-        serialNumber: 12345,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 3",
-        type: "Monitors1",
-        specification: "Specification 3",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: null,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 5,
-        serialNumber: 12345,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 3",
-        type: "Monitors1",
-        specification: "Specification 3",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: null,
-        date: "2017-06-29 12:09:33",
-      },
-      {
-        id: 6,
-        serialNumber: 12345,
-        isNew: 1,
-        photo: "monitor.jpg",
-        title: "Product 3",
-        type: "Monitors2",
-        specification: "Specification 3",
-        guarantee: {
-          start: "2017-06-29 12:09:33",
-          end: "2017-06-29 12:09:33",
-        },
-        price: [
-          { value: 100, symbol: "USD", isDefault: 0 },
-          { value: 2600, symbol: "UAH", isDefault: 1 },
-        ],
-        order: null,
-        date: "2017-06-29 12:09:33",
-      },
-    ],
     filteredProducts: [],
     productTypes: ["Всі"],
+    productSpecifications: [],
     productType: "Всі",
+    productSpecification: "",
+    showLoader: true,
   }),
   mounted() {
     this.getProductList();
-    this.setProductTypes();
+    if (this.productList.length > 0) {
+      this.setProductTypes();
+    }
   },
   methods: {
     ...mapActions(["getProductList"]),
     setProductTypes() {
-      this.productList.forEach((product) => this.productTypes.push(product.type));
+      this.productTypes = ["Всі"];
+      this.productList.forEach((product) => {
+        this.productTypes.push(product.type);
+      });
       this.productTypes = [...new Set(this.productTypes)];
+      this.setProductSpecifications();
+    },
+    setProductSpecifications() {
+      this.productSpecifications = [];
+      this.filteredProducts.forEach((product) => {
+        if (product.specification) {
+          this.productSpecifications.push(product.specification);
+        }
+      });
+      this.productSpecifications = [...new Set(this.productSpecifications)];
+      this.hideLoader();
     },
     filterProductsByType() {
-      this.filteredProducts = this.products.filter(
+      this.showLoader = true;
+      this.filteredProducts = this.productList.filter(
         (product) => product.type == this.productType
       );
+      this.hideLoader();
+    },
+    filterProductsBySpecification() {
+      this.showLoader = true;
+      this.filteredProducts = this.productList.filter((product) =>
+        this.productType == "Всі"
+          ? product.specification == this.productSpecification
+          : product.specification == this.productSpecification &&
+            product.type == this.productType
+      );
+      this.hideLoader();
+    },
+    hideLoader() {
+      setTimeout(() => {
+        this.showLoader = false;
+      }, 500);
     },
   },
   computed: {
@@ -170,23 +99,37 @@ export default {
   },
   watch: {
     productType: {
-      deep: true,
       handler() {
         if (this.productType !== "" && this.productType !== null) {
+          this.productSpecification = "";
           if (this.productType == "Всі") {
-            this.filteredProducts = this.products;
+            this.filteredProducts = this.productList;
           } else {
             this.filterProductsByType();
           }
+          this.setProductSpecifications();
+        }
+      },
+    },
+    productSpecification: {
+      handler() {
+        if (
+          this.productSpecification !== "" &&
+          this.productSpecification !== null
+        ) {
+          this.filterProductsBySpecification();
+        } else if (this.productType == "Всі") {
+          this.filteredProducts = this.productList;
         }
       },
     },
     productList: {
       deep: true,
-      handler(){
+      handler() {
         this.filteredProducts = this.productList;
-      }
-    }
+        this.setProductTypes();
+      },
+    },
   },
 };
 </script>

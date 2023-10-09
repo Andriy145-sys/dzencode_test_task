@@ -17,7 +17,9 @@
         </div>
         <h2>Приходи / {{ orders.length }}</h2>
       </v-row>
+      <loader v-if="showLoader" />
       <orders-list
+        v-else
         :orders="orders"
         @deleteOrder="deleteOrder"
         @deleteProduct="deleteProduct"
@@ -34,11 +36,12 @@
 </template>
 
 <script>
+import Loader from "../UI/loader.vue";
 import ConfirmDeleteOrderModal from "./confirmDeleteOrderModal.vue";
 import ordersList from "./ordersList.vue";
 import { mapGetters } from "vuex";
 export default {
-  components: { ordersList, ConfirmDeleteOrderModal },
+  components: { ordersList, ConfirmDeleteOrderModal, Loader },
   data: () => ({
     showConfirmDeleteOrderModal: false,
     orders: [
@@ -72,9 +75,10 @@ export default {
       },
     ],
     deleteOrderProductsList: [],
+    showLoader: true,
   }),
   mounted() {
-    if(this.productList.length > 0){
+    if (this.productList.length > 0) {
       this.getProducts();
     }
   },
@@ -115,12 +119,15 @@ export default {
             });
           });
         }
-        order.prices = prices.sort((a,b) => a.isDefault - b.isDefault);
+        order.prices = prices.sort((a, b) => a.isDefault - b.isDefault);
+        setTimeout(() => {
+          this.showLoader = false;
+        }, 500);
       });
     },
   },
   computed: {
-    ...mapGetters(['productList'])
+    ...mapGetters(["productList"]),
   },
 };
 </script>

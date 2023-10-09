@@ -1,23 +1,28 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import PageTransition from '@/components/PageTransition'
 Vue.use(Router)
 
 const routes = [
+
   {
     path: '/',
-    redirect: '/orders'
+    component: PageTransition,
+    children: [
+      {
+        path: '/',
+        redirect: '/orders'
+      },
+      {
+        path: '/orders',
+        component: () => import('@/components/Orders/ordersComponent.vue'),
+      },
+      {
+        path: '/products',
+        component: () => import('@/components/Products/productsComponent.vue'),
+      },
+    ],
   },
-  {
-    path: '/orders',
-    name: 'Orders',
-    component: () => import('@/components/Orders/ordersComponent.vue')
-  },
-  {
-    path: '/products',
-    name: 'Products',
-    component: () => import('@/components/Products/productsComponent.vue')
-  }
 ]
 
 const router = new Router({
